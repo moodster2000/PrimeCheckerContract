@@ -6,15 +6,15 @@ import "../src/EnumerableNFT.sol";
 import "../src/NFTPrimeChecker.sol";
 
 contract NFTPrimeCheckerTest is Test {
-    EnumerableNFT private EnumerableNFT;
+    EnumerableNFT private myNFTCollection;
     NFTPrimeChecker private nftPrimeChecker;
     address private owner = address(0xABCD);
-    
+
     function setUp() public {
         vm.startPrank(owner);
-        EnumerableNFT = new EnumerableNFT();
-        EnumerableNFT.mint();
-        nftPrimeChecker = new NFTPrimeChecker(address(EnumerableNFT));
+        myNFTCollection = new EnumerableNFT();
+        myNFTCollection.mint();
+        nftPrimeChecker = new NFTPrimeChecker(address(myNFTCollection));
         vm.stopPrank();
     }
 

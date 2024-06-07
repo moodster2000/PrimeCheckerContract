@@ -1,18 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "./EnumerableNFT.sol";
 
+/// @title NFTPrimeChecker
+/// @notice A contract for checking prime numbers and counting prime token IDs owned by an address.
+/// @dev Interacts with an EnumerableNFT contract.
 contract NFTPrimeChecker {
-    MyNFTCollection private nftCollection;
+    EnumerableNFT private nftCollection;
 
+    /// @notice Constructor for the NFTPrimeChecker contract.
+    /// @param _nftCollectionAddress The address of the EnumerableNFT contract.
     constructor(address _nftCollectionAddress) {
-        nftCollection = MyNFTCollection(_nftCollectionAddress);
+        nftCollection = EnumerableNFT(_nftCollectionAddress);
     }
 
+    /// @notice Checks if a number is prime.
+    /// @param number The number to check.
+    /// @return True if the number is prime, false otherwise.
     function isPrime(uint256 number) public pure returns (bool) {
-        if (number == 2) return true;
+        if (number == 2 || number == 3) return true;
         if (number <= 1 || number % 2 == 0) return false;
+        
         uint256 i = 3;
 
         do {
@@ -25,6 +34,9 @@ contract NFTPrimeChecker {
         return true;
     }
 
+    /// @notice Counts the number of prime token IDs owned by a given address.
+    /// @param owner The address to check.
+    /// @return The number of prime token IDs owned by the address.
     function countPrimes(address owner) public view returns (uint256) {
         uint256 count = 0;
         uint256 balance = nftCollection.balanceOf(owner);
