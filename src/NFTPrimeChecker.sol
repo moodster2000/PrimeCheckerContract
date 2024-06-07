@@ -21,7 +21,7 @@ contract NFTPrimeChecker {
     function isPrime(uint256 number) public pure returns (bool) {
         if (number == 2 || number == 3) return true;
         if (number <= 1 || number % 2 == 0) return false;
-        
+
         uint256 i = 3;
 
         do {
